@@ -514,6 +514,21 @@ def color_temperature_to_rgb(
     return red, green, blue
 
 
+def color_xy_to_temperature(vX: float, vY: float) -> int:
+    """
+    Returns a color temperature in Kelvin given an xy color
+
+    Based on the black body values of `lookup` in `cctToXy.js` at
+    https://www.waveformlighting.com/tech/calculate-cie-1931-xy-coordinates-from-cct
+    Then formula calculated with curve_fit from SciPy with the help of
+    https://machinelearningmastery.com/curve-fitting-with-python/
+    n value obtained from https://www.waveformlighting.com/tech/calculate-color-temperature-cct-from-cie-1931-xy-coordinates
+    """
+
+    n = (vX - 0.3320) / (0.1858 - vY)
+    return int(6845*n + 3485*n**2 + 574*n**3 + 1131*n**4 + 1100*n**5 + -164*n**6 + -282*n**7 + 172*n**8 + 171*n**9 + 34*n**10 + 5518)
+
+
 def _clamp(color_component: float, minimum: float = 0, maximum: float = 255) -> float:
     """
     Clamp the given color component value between the given min and max values.
