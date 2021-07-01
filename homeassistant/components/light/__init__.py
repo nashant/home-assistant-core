@@ -528,6 +528,7 @@ class Profile:
     brightness: int | None
     transition: int | None = None
     hs_color: tuple[float, float] | None = dataclasses.field(init=False)
+    kelvin: int | None = dataclasses.field(init=False)
 
     SCHEMA = vol.Schema(  # pylint: disable=invalid-name
         vol.Any(
@@ -558,6 +559,10 @@ class Profile:
             return
 
         self.hs_color = color_util.color_xy_to_hs(
+            cast(float, self.color_x), cast(float, self.color_y)
+        )
+
+        self.kelvin = color_util.color_xy_to_temperature(
             cast(float, self.color_x), cast(float, self.color_y)
         )
 
@@ -632,6 +637,8 @@ class Profiles:
 
         if profile.hs_color is not None:
             params.setdefault(ATTR_HS_COLOR, profile.hs_color)
+        if profile.kelvin is not None:
+            params.setdefault(ATTR_KELVIN, profile.kelvin)
         if profile.brightness is not None:
             params.setdefault(ATTR_BRIGHTNESS, profile.brightness)
         if profile.transition is not None:
