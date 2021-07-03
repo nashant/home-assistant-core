@@ -612,6 +612,7 @@ async def test_default_profiles_group(
                 light.ATTR_TRANSITION: 3,
             },
             {
+                light.ATTR_KELVIN: 2469,
                 light.ATTR_BRIGHTNESS: 22,
                 light.ATTR_TRANSITION: 3,
             },
@@ -645,13 +646,18 @@ async def test_default_profiles_group(
             },
         ),
         (
-            {light.ATTR_BRIGHTNESS: 11, light.ATTR_TRANSITION: 1},
+            {
+                light.ATTR_KELVIN: 2469,
+                light.ATTR_BRIGHTNESS: 11,
+                light.ATTR_TRANSITION: 1,
+            },
             {
                 light.ATTR_HS_COLOR: (50.353, 100),
                 light.ATTR_BRIGHTNESS: 11,
                 light.ATTR_TRANSITION: 1,
             },
             {
+                light.ATTR_KELVIN: 2469,
                 light.ATTR_BRIGHTNESS: 11,
                 light.ATTR_TRANSITION: 1,
             },
